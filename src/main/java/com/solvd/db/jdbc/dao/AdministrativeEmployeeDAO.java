@@ -68,7 +68,7 @@ public class AdministrativeEmployeeDAO implements IAdministrativeEmployeeDAO {
     @Override
     public void deleteById(int adminId) {
         Connection con = connectionPool.getConnection();
-        String query = "DELETE FROM promotion WHERE id = ?";
+        String query = "DELETE FROM administrative_employee WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, adminId);
@@ -84,7 +84,7 @@ public class AdministrativeEmployeeDAO implements IAdministrativeEmployeeDAO {
     public AdministrativeEmployee getById(int adminId) {
         Connection con = connectionPool.getConnection();
         AdministrativeEmployee administrativeEmployee = new AdministrativeEmployee();
-        String query = "SELECT * FROM administrativeEmployee WHERE id = ?";
+        String query = "SELECT * FROM administrative_employee WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, adminId);
@@ -109,7 +109,7 @@ public class AdministrativeEmployeeDAO implements IAdministrativeEmployeeDAO {
     public List<AdministrativeEmployee> getAll() {
         Connection con = connectionPool.getConnection();
         List<AdministrativeEmployee> administrativeEmployees = new ArrayList<>();
-        String query = "SELECT * FROM administrativeEmployee";
+        String query = "SELECT * FROM administrative_employee";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.execute();

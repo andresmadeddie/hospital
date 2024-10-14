@@ -49,4 +49,14 @@ public class Supplier {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "Supplier{" +
+                "supplierId=" + supplierId +
+                ", name='" + name + '\'' +
+                ", contactPerson='" + contactPerson + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

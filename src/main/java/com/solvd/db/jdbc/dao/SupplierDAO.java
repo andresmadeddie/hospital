@@ -33,7 +33,7 @@ public class SupplierDAO implements ISupplierDAO {
     @Override
     public void insert(Supplier supplier) {
         Connection con = connectionPool.getConnection();
-        String query = "INSERT INTO supplier (name, contact_person, phone_number, email) VALUES (?, ?, ?, ?";
+        String query = "INSERT INTO supplier (name, contact_person, phone_number, email) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, supplier.getName());
@@ -51,7 +51,7 @@ public class SupplierDAO implements ISupplierDAO {
     @Override
     public void update(Supplier supplier) {
         Connection con = connectionPool.getConnection();
-        String query = "UPDATE supplier SET name = ?, person_id = ?, specialization = ?, license_number = ?, hire_date = ? WHERE id = ?";
+        String query = "UPDATE supplier SET name = ?, contact_person = ?, phone_number = ?, email = ? WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, supplier.getName());
@@ -97,7 +97,7 @@ public class SupplierDAO implements ISupplierDAO {
                     supplier.setContactPerson(rs.getString("contact_person"));
                     supplier.setPhoneNumber(rs.getString("phone_number"));
                     supplier.setEmail(rs.getString("email"));
-                    supplier.setSupplierId(rs.getInt("supplier_id"));
+                    supplier.setSupplierId(rs.getInt("id"));
                 }
             }
         } catch (SQLException e) {

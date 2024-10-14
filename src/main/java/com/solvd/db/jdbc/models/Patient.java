@@ -49,4 +49,15 @@ public class Patient {
     public void setMedicalHistory(String medicalHistory) {
         this.medicalHistory = medicalHistory;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "patientId=" + patientId +
+                ", person=" + person +
+                ", admissionDate=" + admissionDate +
+                ", dischargeDate=" + dischargeDate +
+                ", medicalHistory='" + medicalHistory + '\'' +
+                '}';
+    }
 }

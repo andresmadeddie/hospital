@@ -49,4 +49,15 @@ public class Management {
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
+
+    @Override
+    public String toString() {
+        return "Management{" +
+                "managementId=" + managementId +
+                ", person=" + person +
+                ", department='" + department + '\'' +
+                ", position='" + position + '\'' +
+                ", hireDate=" + hireDate +
+                '}';
+    }
 }

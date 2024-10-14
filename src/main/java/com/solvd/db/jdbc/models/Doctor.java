@@ -49,4 +49,15 @@ public class Doctor {
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "doctorId=" + doctorId +
+                ", person=" + person +
+                ", specialization='" + specialization + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                ", hireDate=" + hireDate +
+                '}';
+    }
 }

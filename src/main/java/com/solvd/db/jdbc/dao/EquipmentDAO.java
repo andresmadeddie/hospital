@@ -32,7 +32,7 @@ public class EquipmentDAO implements IEquipmentDAO {
     @Override
     public void insert(Equipment equipment) {
         Connection con = connectionPool.getConnection();
-        String query = "INSERT INTO equipment (name, type, purchase_date, warranty_end, supplier) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO equipment (name, type, purchase_date, warranty_end, supplier_id) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, equipment.getName());
@@ -51,7 +51,7 @@ public class EquipmentDAO implements IEquipmentDAO {
     @Override
     public void update(Equipment equipment) {
         Connection con = connectionPool.getConnection();
-        String query = "UPDATE equipment SET name = ?, type = ?, purchase_date = ?, warranty_end = ?, supplier = ? WHERE id = ?";
+        String query = "UPDATE equipment SET name = ?, type = ?, purchase_date = ?, warranty_end = ?, supplier_id = ? WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, equipment.getName());

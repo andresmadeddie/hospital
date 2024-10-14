@@ -40,4 +40,14 @@ public class Nurse {
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
+
+    @Override
+    public String toString() {
+        return "Nurse{" +
+                "nurseId=" + nurseId +
+                ", person=" + person +
+                ", shift='" + shift + '\'' +
+                ", hireDate=" + hireDate +
+                '}';
+    }
 }

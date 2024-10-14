@@ -49,4 +49,15 @@ public class Appointment {
     public void setReasonForVisit(String reasonForVisit) {
         this.reasonForVisit = reasonForVisit;
     }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "appointmentId=" + appointmentId +
+                ", doctor=" + doctor +
+                ", patient=" + patient +
+                ", appointmentDate=" + appointmentDate +
+                ", reasonForVisit='" + reasonForVisit + '\'' +
+                '}';
+    }
 }

@@ -58,4 +58,16 @@ public class Equipment {
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
+
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "equipmentId=" + equipmentId +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", purchaseDate=" + purchaseDate +
+                ", warrantyEnd=" + warrantyEnd +
+                ", supplier=" + supplier +
+                '}';
+    }
 }

@@ -96,7 +96,7 @@ public class ManagementDAO implements IManagementDAO {
                     management.setPerson(new PersonDAO().getById(rs.getInt("person_id")));
                     management.setDepartment(rs.getString("department"));
                     management.setPosition(rs.getString("position"));
-                    management.setHireDate(rs.getDate("hireDate"));
+                    management.setHireDate(rs.getDate("hire_date"));
                     management.setManagementId(rs.getInt("id"));
                 }
             }
@@ -123,7 +123,7 @@ public class ManagementDAO implements IManagementDAO {
                     management.setPerson(new PersonDAO().getById(rs.getInt("person_id")));
                     management.setDepartment(rs.getString("department"));
                     management.setPosition(rs.getString("position"));
-                    management.setHireDate(rs.getDate("hireDate"));
+                    management.setHireDate(rs.getDate("hire_date"));
                     management.setManagementId(rs.getInt("id"));
                     managements.add(management);
                 }

@@ -40,4 +40,14 @@ public class AdministrativeEmployee {
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
+
+    @Override
+    public String toString() {
+        return "AdministrativeEmployee{" +
+                "adminId=" + adminId +
+                ", person=" + person +
+                ", department='" + department + '\'' +
+                ", hireDate=" + hireDate +
+                '}';
+    }
 }

@@ -16,8 +16,7 @@ public class Main {
         // Reset All Tables
         SqlResetUtil.reset();
 
-        // Generate Data for DB
-        // 20 Persons
+        // Create 20 Persons
         Person p1 = new Person();
         p1.setFirstName("Alice");
         p1.setLastName("Johnson");
@@ -198,149 +197,6 @@ public class Main {
         p20.setPhoneNumber("123-456-7890");
         p20.setEmail("bucky.barnes@example.com");
 
-        // 3 Doctors
-        Doctor d1 = new Doctor();
-        d1.setPerson(p1);
-        d1.setSpecialization("Cardiology");
-        d1.setLicenseNumber("LIC12345");
-        d1.setHireDate(Date.valueOf("2010-06-01"));
-
-        Doctor d2 = new Doctor();
-        d2.setPerson(p2);
-        d2.setSpecialization("Pediatrics");
-        d2.setLicenseNumber("LIC67890");
-        d2.setHireDate(Date.valueOf("2012-08-15"));
-
-        Doctor d3 = new Doctor();
-        d3.setPerson(p3);
-        d3.setSpecialization("Neurology");
-        d3.setLicenseNumber("LIC54321");
-        d3.setHireDate(Date.valueOf("2018-04-20"));
-
-        // 3 Nurses
-        Nurse n1 = new Nurse();
-        n1.setPerson(p4);
-        n1.setShift("Day");
-        n1.setHireDate(Date.valueOf("2015-03-10"));
-
-        Nurse n2 = new Nurse();
-        n2.setPerson(p5);
-        n2.setShift("Night");
-        n2.setHireDate(Date.valueOf("2016-07-22"));
-
-        Nurse n3 = new Nurse();
-        n3.setPerson(p6);
-        n3.setShift("Evening");
-        n3.setHireDate(Date.valueOf("2019-11-28"));
-
-        // 3 Patients
-        Patient pa1 = new Patient();
-        pa1.setPerson(p7);
-        pa1.setAdmissionDate(Date.valueOf("2024-01-10"));
-        pa1.setDischargeDate(null);
-        pa1.setMedicalHistory("Diabetes Type 2");
-
-        Patient pa2 = new Patient();
-        pa2.setPerson(p8);
-        pa2.setAdmissionDate(Date.valueOf("2024-02-15"));
-        pa2.setDischargeDate(null);
-        pa2.setMedicalHistory("Hypertension");
-
-        Patient pa3 = new Patient();
-        pa3.setPerson(p9);
-        pa3.setAdmissionDate(Date.valueOf("2024-03-01"));
-        pa3.setDischargeDate(null);
-        pa3.setMedicalHistory("Asthma");
-
-        // 3 Management
-        Management m1 = new Management();
-        m1.setPerson(p10);
-        m1.setDepartment("Finance");
-        m1.setPosition("CFO");
-        m1.setHireDate(Date.valueOf("2008-09-01"));
-
-        Management m2 = new Management();
-        m2.setPerson(p11);
-        m2.setDepartment("IT");
-        m2.setPosition("CTO");
-        m2.setHireDate(Date.valueOf("2011-05-12"));
-
-        Management m3 = new Management();
-        m3.setPerson(p12);
-        m3.setDepartment("Operations");
-        m3.setPosition("COO");
-        m3.setHireDate(Date.valueOf("2019-01-15"));
-
-        // 3 AdministrativeEmployee
-        AdministrativeEmployee a1 = new AdministrativeEmployee();
-        a1.setPerson(p13);
-        a1.setDepartment("Human Resources");
-        a1.setHireDate(Date.valueOf("2020-02-18"));
-
-        AdministrativeEmployee a2 = new AdministrativeEmployee();
-        a2.setPerson(p13);
-        a2.setDepartment("Accounting");
-        a2.setHireDate(Date.valueOf("2021-03-05"));
-
-        AdministrativeEmployee a3 = new AdministrativeEmployee();
-        a3.setPerson(p13);
-        a3.setDepartment("Legal");
-        a3.setHireDate(Date.valueOf("2023-07-22"));
-
-        // 2 Suppliers
-        Supplier s1 = new Supplier();
-        s1.setName("MediSupply");
-        s1.setContactPerson("Alice Green");
-        s1.setPhoneNumber("555-7890");
-        s1.setEmail("alice@medisupply.com");
-
-        Supplier s2 = new Supplier();
-        s2.setName("HealthGoods");
-        s2.setContactPerson("Bob White");
-        s2.setPhoneNumber("555-4321");
-        s2.setEmail("bob@healthgoods.com");
-
-        // 1 Equipment
-        Equipment e1 = new Equipment();
-        e1.setName("MRI Scanner");
-        e1.setType("Imaging");
-        e1.setPurchaseDate(Date.valueOf("2022-05-05"));
-        e1.setWarrantyEnd(Date.valueOf("2025-05-05"));
-        e1.setSupplier(s1);
-
-        // 1 Medical Supply
-        MedicalSupplies me1 = new MedicalSupplies();
-        me1.setName("Gloves");
-        me1.setQuantity(1000);
-        me1.setUnitPrice(0.2F);
-        me1.setSupplier(s2);
-
-        // 4 Appointments
-        Appointment ap1 = new Appointment();
-        ap1.setDoctor(d1);
-        ap1.setPatient(pa1);
-        ap1.setAppointmentDate(Date.valueOf("2024-10-01"));
-        ap1.setReasonForVisit("Routine Check-up'");
-
-        Appointment ap2 = new Appointment();
-        ap2.setDoctor(d1);
-        ap2.setPatient(pa2);
-        ap2.setAppointmentDate(Date.valueOf("2024-10-05"));
-        ap2.setReasonForVisit("Follow-up for Diabetes");
-
-        Appointment ap3 = new Appointment();
-        ap3.setDoctor(d2);
-        ap3.setPatient(pa1);
-        ap3.setAppointmentDate(Date.valueOf("2024-10-07"));
-        ap3.setReasonForVisit("Flu Symptoms");
-
-        Appointment ap4 = new Appointment();
-        ap4.setDoctor(d2);
-        ap4.setPatient(pa2);
-        ap4.setAppointmentDate(Date.valueOf("2024-10-10"));
-        ap4.setReasonForVisit("Blood Pressure Check");
-
-        // INSERT
         // INSERT PERSONS
         new PersonService().insert(p1);
         new PersonService().insert(p2);
@@ -363,40 +219,182 @@ public class Main {
         new PersonService().insert(p19);
         new PersonService().insert(p20);
 
+        // Create 3 Doctors
+        Doctor d1 = new Doctor();
+        d1.setPerson(new PersonService().getById(1));
+        d1.setSpecialization("Cardiology");
+        d1.setLicenseNumber("LIC12345");
+        d1.setHireDate(Date.valueOf("2010-06-01"));
+
+        Doctor d2 = new Doctor();
+        d2.setPerson(new PersonService().getById(2));
+        d2.setSpecialization("Pediatrics");
+        d2.setLicenseNumber("LIC67890");
+        d2.setHireDate(Date.valueOf("2012-08-15"));
+
+        Doctor d3 = new Doctor();
+        d3.setPerson(new PersonService().getById(3));
+        d3.setSpecialization("Neurology");
+        d3.setLicenseNumber("LIC54321");
+        d3.setHireDate(Date.valueOf("2018-04-20"));
+
         // INSERT DOCTORS
         new DoctorService().insert(d1);
         new DoctorService().insert(d2);
         new DoctorService().insert(d3);
+
+        // Create 3 Nurses
+        Nurse n1 = new Nurse();
+        n1.setPerson(new PersonService().getById(4));
+        n1.setShift("Day");
+        n1.setHireDate(Date.valueOf("2015-03-10"));
+
+        Nurse n2 = new Nurse();
+        n2.setPerson(new PersonService().getById(5));
+        n2.setShift("Night");
+        n2.setHireDate(Date.valueOf("2016-07-22"));
+
+        Nurse n3 = new Nurse();
+        n3.setPerson(new PersonService().getById(6));
+        n3.setShift("Evening");
+        n3.setHireDate(Date.valueOf("2019-11-28"));
 
         // INSERT NURSES
         new NurseService().insert(n1);
         new NurseService().insert(n2);
         new NurseService().insert(n3);
 
+        // Create 3 Patients
+        Patient pa1 = new Patient();
+        pa1.setPerson(new PersonService().getById(7));
+        pa1.setAdmissionDate(Date.valueOf("2024-01-10"));
+        pa1.setDischargeDate(null);
+        pa1.setMedicalHistory("Diabetes Type 2");
+
+        Patient pa2 = new Patient();
+        pa2.setPerson(new PersonService().getById(8));
+        pa2.setAdmissionDate(Date.valueOf("2024-02-15"));
+        pa2.setDischargeDate(null);
+        pa2.setMedicalHistory("Hypertension");
+
+        Patient pa3 = new Patient();
+        pa3.setPerson(new PersonService().getById(9));
+        pa3.setAdmissionDate(Date.valueOf("2024-03-01"));
+        pa3.setDischargeDate(null);
+        pa3.setMedicalHistory("Asthma");
+
         // INSERT PATIENTS
         new PatientService().insert(pa1);
         new PatientService().insert(pa2);
         new PatientService().insert(pa3);
+
+        // Create 3 Management
+        Management m1 = new Management();
+        m1.setPerson(new PersonService().getById(10));
+        m1.setDepartment("Finance");
+        m1.setPosition("CFO");
+        m1.setHireDate(Date.valueOf("2008-09-01"));
+
+        Management m2 = new Management();
+        m2.setPerson(new PersonService().getById(11));
+        m2.setDepartment("IT");
+        m2.setPosition("CTO");
+        m2.setHireDate(Date.valueOf("2011-05-12"));
+
+        Management m3 = new Management();
+        m3.setPerson(new PersonService().getById(12));
+        m3.setDepartment("Operations");
+        m3.setPosition("COO");
+        m3.setHireDate(Date.valueOf("2019-01-15"));
 
         // INSERT MANAGEMENT
         new ManagementService().insert(m1);
         new ManagementService().insert(m2);
         new ManagementService().insert(m3);
 
+        // Create 3 AdministrativeEmployee
+        AdministrativeEmployee a1 = new AdministrativeEmployee();
+        a1.setPerson(new PersonService().getById(13));
+        a1.setDepartment("Human Resources");
+        a1.setHireDate(Date.valueOf("2020-02-18"));
+
+        AdministrativeEmployee a2 = new AdministrativeEmployee();
+        a2.setPerson(new PersonService().getById(14));
+        a2.setDepartment("Accounting");
+        a2.setHireDate(Date.valueOf("2021-03-05"));
+
+        AdministrativeEmployee a3 = new AdministrativeEmployee();
+        a3.setPerson(new PersonService().getById(15));
+        a3.setDepartment("Legal");
+        a3.setHireDate(Date.valueOf("2023-07-22"));
+
         // INSERT ADMINISTRATIVE EMPLOYEE
         new AdministrativeEmployeeService().insert(a1);
         new AdministrativeEmployeeService().insert(a2);
         new AdministrativeEmployeeService().insert(a3);
 
+        // Create 2 Suppliers
+        Supplier s1 = new Supplier();
+        s1.setName("MediSupply");
+        s1.setContactPerson("Alice Green");
+        s1.setPhoneNumber("555-7890");
+        s1.setEmail("alice@medisupply.com");
+
+        Supplier s2 = new Supplier();
+        s2.setName("HealthGoods");
+        s2.setContactPerson("Bob White");
+        s2.setPhoneNumber("555-4321");
+        s2.setEmail("bob@healthgoods.com");
+
         // INSERT SUPPLIERS
         new SupplierService().insert(s1);
         new SupplierService().insert(s2);
 
+        // Create 1 Equipment
+        Equipment e1 = new Equipment();
+        e1.setName("MRI Scanner");
+        e1.setType("Imaging");
+        e1.setPurchaseDate(Date.valueOf("2022-05-05"));
+        e1.setWarrantyEnd(Date.valueOf("2025-05-05"));
+        e1.setSupplier(new SupplierService().getById(1));
+
         // INSERT EQUIPMENT
         new EquipmentService().insert(e1);
 
+        // Create 1 Medical Supply
+        MedicalSupplies me1 = new MedicalSupplies();
+        me1.setName("Gloves");
+        me1.setQuantity(1000);
+        me1.setUnitPrice(0.2F);
+        me1.setSupplier(new SupplierService().getById(2));
+
         // INSERT MEDICAL SUPPLIES
         new MedicalSuppliesService().insert(me1);
+
+        // Create 4 Appointments
+        Appointment ap1 = new Appointment();
+        ap1.setDoctor(new DoctorService().getById(1));
+        ap1.setPatient(new PatientService().getById(1));
+        ap1.setAppointmentDate(Date.valueOf("2024-10-01"));
+        ap1.setReasonForVisit("Routine Check-up'");
+
+        Appointment ap2 = new Appointment();
+        ap2.setDoctor(new DoctorService().getById(1));
+        ap2.setPatient(new PatientService().getById(2));
+        ap2.setAppointmentDate(Date.valueOf("2024-10-05"));
+        ap2.setReasonForVisit("Follow-up for Diabetes");
+
+        Appointment ap3 = new Appointment();
+        ap3.setDoctor(new DoctorService().getById(2));
+        ap3.setPatient(new PatientService().getById(1));
+        ap3.setAppointmentDate(Date.valueOf("2024-10-07"));
+        ap3.setReasonForVisit("Flu Symptoms");
+
+        Appointment ap4 = new Appointment();
+        ap4.setDoctor(new DoctorService().getById(2));
+        ap4.setPatient(new PatientService().getById(2));
+        ap4.setAppointmentDate(Date.valueOf("2024-10-10"));
+        ap4.setReasonForVisit("Blood Pressure Check");
 
         // INSERT APPOINTMENTS
         new AppointmentService().insert(ap1);

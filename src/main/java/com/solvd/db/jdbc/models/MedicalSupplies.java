@@ -47,4 +47,15 @@ public class MedicalSupplies {
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
+
+    @Override
+    public String toString() {
+        return "MedicalSupplies{" +
+                "supplyId=" + supplyId +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", unitPrice=" + unitPrice +
+                ", supplier=" + supplier +
+                '}';
+    }
 }

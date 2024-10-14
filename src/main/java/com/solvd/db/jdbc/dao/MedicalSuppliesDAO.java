@@ -33,7 +33,7 @@ public class MedicalSuppliesDAO implements IMedicalSuppliesDAO {
     @Override
     public void insert(MedicalSupplies medicalSupplies) {
         Connection con = connectionPool.getConnection();
-        String query = "INSERT INTO medicalSupplies (name, quantity, unit_price, supplier_id) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO medical_supplies (name, quantity, unit_price, supplier_id) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, medicalSupplies.getName());
@@ -52,14 +52,14 @@ public class MedicalSuppliesDAO implements IMedicalSuppliesDAO {
     @Override
     public void update(MedicalSupplies medicalSupplies) {
         Connection con = connectionPool.getConnection();
-        String query = "UPDATE medicalSupplies SET name = ?, quantity = ?, contact_person = ?, phone_number = ?, email = ? WHERE id = ?";
+        String query = "UPDATE medical_supplies SET name = ?, quantity = ?, unit_price = ?, supplier_id = ? WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, medicalSupplies.getName());
             ps.setInt(2, medicalSupplies.getQuantity());
             ps.setFloat(3, medicalSupplies.getUnitPrice());
             ps.setInt(4, medicalSupplies.getSupplier().getSupplierId());
-            ps.setInt(6, medicalSupplies.getSupplyId());
+            ps.setInt(5, medicalSupplies.getSupplyId());
             ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -71,7 +71,7 @@ public class MedicalSuppliesDAO implements IMedicalSuppliesDAO {
     @Override
     public void deleteById(int medicalSupplyId) {
         Connection con = connectionPool.getConnection();
-        String query = "DELETE FROM medicalSupplies WHERE id = ?";
+        String query = "DELETE FROM medical_supplies WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, medicalSupplyId);
@@ -87,7 +87,7 @@ public class MedicalSuppliesDAO implements IMedicalSuppliesDAO {
     public MedicalSupplies getById(int medicalSupplyId) {
         Connection con = connectionPool.getConnection();
         MedicalSupplies medicalSupply = new MedicalSupplies();
-        String query = "SELECT * FROM medicalSupplies WHERE id = ?";
+        String query = "SELECT * FROM medical_supplies WHERE id = ?";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, medicalSupplyId);
@@ -98,7 +98,7 @@ public class MedicalSuppliesDAO implements IMedicalSuppliesDAO {
                     medicalSupply.setQuantity(rs.getInt("quantity"));
                     medicalSupply.setUnitPrice(rs.getFloat("unit_price"));
                     medicalSupply.setSupplier(new SupplierDAO().getById(rs.getInt("supplier_id")));
-                    medicalSupply.setSupplyId(rs.getInt("supplies_id"));
+                    medicalSupply.setSupplyId(rs.getInt("id"));
                 }
             }
         } catch (SQLException e) {
@@ -113,7 +113,7 @@ public class MedicalSuppliesDAO implements IMedicalSuppliesDAO {
     public List<MedicalSupplies> getAll() {
         Connection con = connectionPool.getConnection();
         List<MedicalSupplies> medicalSupplies = new ArrayList<>();
-        String query = "SELECT * FROM medicalSupplies";
+        String query = "SELECT * FROM medical_supplies";
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.execute();
@@ -125,7 +125,7 @@ public class MedicalSuppliesDAO implements IMedicalSuppliesDAO {
                     medicalSupply.setQuantity(rs.getInt("quantity"));
                     medicalSupply.setUnitPrice(rs.getFloat("unit_price"));
                     medicalSupply.setSupplier(new SupplierDAO().getById(rs.getInt("supplier_id")));
-                    medicalSupply.setSupplyId(rs.getInt("supplies_id"));
+                    medicalSupply.setSupplyId(rs.getInt("id"));
                     medicalSupplies.add(medicalSupply);
                 }
             }
