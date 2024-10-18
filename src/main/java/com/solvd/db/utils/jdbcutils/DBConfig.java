@@ -1,4 +1,4 @@
-package com.solvd.db.utils;
+package com.solvd.db.utils.jdbcutils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,4 +22,3 @@ public class DBConfig {
     public static final String USERNAME = properties.getProperty("user");
     public static final String PASSWORD = properties.getProperty("password");
 }
-

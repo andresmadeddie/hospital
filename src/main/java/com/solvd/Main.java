@@ -1,9 +1,13 @@
 package com.solvd;
 
+import com.solvd.db.enums.Paths;
 import com.solvd.db.jdbc.models.*;
 import com.solvd.db.jdbc.services.*;
-import com.solvd.db.utils.SqlResetUtil;
-import com.solvd.db.utils.TestConnection;
+import com.solvd.db.utils.connectionutils.TestConnection;
+import com.solvd.db.utils.jdbcutils.SqlResetUtil;
+import com.solvd.db.utils.xmlutils.JAXBUtil;
+import com.solvd.db.utils.xmlutils.XmlParser;
+import com.solvd.db.utils.xmlutils.XmlValidator;
 
 import java.sql.Date;
 
@@ -515,6 +519,37 @@ public class Main {
         // MEDICAL SUPPLY
         new MedicalSuppliesService().deleteById(1);
         System.out.println("Person deleted: " + new MedicalSuppliesService().getById(1));
+
+        // JAXB
+
+        // Marsh
+        // Person, Patient, Nurse, Doctor, Management
+        System.out.println("\n--- MARSHALL --- \nFiles created from Person, Patient, Nurse, Doctor, Management Object are stored in resources/xml --- ");
+        JAXBUtil.marshall(new PersonService().getById(1));
+        JAXBUtil.marshall(new PatientService().getById(1));
+        JAXBUtil.marshall(new NurseService().getById(1));
+        JAXBUtil.marshall(new DoctorService().getById(1));
+        JAXBUtil.marshall(new ManagementService().getById(1));
+
+        //UnMarsh Person, Patient, Nurse, Doctor, Management
+        System.out.println("\n--- UNMARSHALL --- \nPerson, Patient, Nurse, Doctor, Management xml files at resources/xml --- ");
+        System.out.println(JAXBUtil.unMarshall(Paths.XMLFOLDER.getPath() + "Person.xml"));
+        System.out.println(JAXBUtil.unMarshall(Paths.XMLFOLDER.getPath() + "Patient.xml"));
+        System.out.println(JAXBUtil.unMarshall(Paths.XMLFOLDER.getPath() + "Nurse.xml"));
+        System.out.println(JAXBUtil.unMarshall(Paths.XMLFOLDER.getPath() + "Doctor.xml"));
+        System.out.println(JAXBUtil.unMarshall(Paths.XMLFOLDER.getPath() + "Management.xml"));
+
+        // XML Validate
+        System.out.println("\n Validate xml against xds. Both at resources/xml");
+        XmlValidator.validateXMLAgainstXSD((Paths.XMLFOLDER.getPath() + "Person.xml"), (Paths.XSDFOLDER.getPath() + "person.xsd"));
+        XmlValidator.validateXMLAgainstXSD((Paths.XMLFOLDER.getPath() + "Patient.xml"), (Paths.XSDFOLDER.getPath() + "patient.xsd"));
+        XmlValidator.validateXMLAgainstXSD((Paths.XMLFOLDER.getPath() + "Nurse.xml"), (Paths.XSDFOLDER.getPath() + "nurse.xsd"));
+        XmlValidator.validateXMLAgainstXSD((Paths.XMLFOLDER.getPath() + "Doctor.xml"), (Paths.XSDFOLDER.getPath() + "doctor.xsd"));
+        XmlValidator.validateXMLAgainstXSD((Paths.XMLFOLDER.getPath() + "Management.xml"), (Paths.XSDFOLDER.getPath() + "management.xsd"));
+
+        // XML Parse Doctor
+        System.out.println("\n--- Parsing Doctor from xml to Java objet");
+        System.out.println(XmlParser.parseDoctorDataFromFile((Paths.XMLFOLDER.getPath() + "Doctor.xml")));
 
         System.out.println("---THE END---");
     }

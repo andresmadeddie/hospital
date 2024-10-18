@@ -1,4 +1,6 @@
-package com.solvd.db.utils;
+package com.solvd.db.utils.jdbcutils;
+
+import com.solvd.db.utils.connectionutils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.SQLException;

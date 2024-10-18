@@ -1,17 +1,40 @@
 package com.solvd.db.jdbc.models;
 
+import com.solvd.db.jaxb.DateAdapter;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.sql.Date;
 
+@XmlRootElement(name = "person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
+    @XmlAttribute
     private int personId;
+
+    @XmlElement (name = "firstName")
     private String firstName;
+
+    @XmlElement (name = "lastName")
     private String lastName;
+
+    @XmlElement (name = "dob")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date dob;
+
+    @XmlElement (name = "gender")
     private String gender;
+
+    @XmlElement (name = "address")
     private String address;
+
+    @XmlElement (name = "phoneNumber")
     private String phoneNumber;
+
+    @XmlElement (name = "email")
     private String email;
+
 
     public int getPersonId() {
         return personId;

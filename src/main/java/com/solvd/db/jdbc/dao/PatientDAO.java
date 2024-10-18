@@ -2,7 +2,7 @@ package com.solvd.db.jdbc.dao;
 
 import com.solvd.db.jdbc.interfaces.IPatientDAO;
 import com.solvd.db.jdbc.models.Patient;
-import com.solvd.db.utils.ConnectionPool;
+import com.solvd.db.utils.connectionutils.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,4 +1,6 @@
-package com.solvd.db.utils;
+package com.solvd.db.utils.connectionutils;
+
+import com.solvd.db.utils.jdbcutils.DBConfig;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

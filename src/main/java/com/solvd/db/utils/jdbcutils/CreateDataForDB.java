@@ -1,4 +1,4 @@
-package com.solvd.db.utils;
+package com.solvd.db.utils.jdbcutils;
 
 import com.solvd.db.jdbc.models.*;
 
