@@ -1,4 +1,4 @@
-package com.solvd.db.utils.xmlutils;
+package com.solvd.db.jaxb;
 
 import com.solvd.db.jdbc.models.Doctor;
 import com.solvd.db.jdbc.models.Person;

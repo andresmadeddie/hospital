@@ -1,13 +1,14 @@
 package com.solvd;
 
 import com.solvd.db.enums.Paths;
+import com.solvd.db.jackson.JSONUtils;
+import com.solvd.db.jaxb.JAXBUtil;
+import com.solvd.db.jaxb.XmlParser;
+import com.solvd.db.jaxb.XmlValidator;
 import com.solvd.db.jdbc.models.*;
 import com.solvd.db.jdbc.services.*;
 import com.solvd.db.utils.connectionutils.TestConnection;
 import com.solvd.db.utils.jdbcutils.SqlResetUtil;
-import com.solvd.db.utils.xmlutils.JAXBUtil;
-import com.solvd.db.utils.xmlutils.XmlParser;
-import com.solvd.db.utils.xmlutils.XmlValidator;
 
 import java.sql.Date;
 
@@ -551,6 +552,23 @@ public class Main {
         System.out.println("\n--- Parsing Doctor from xml to Java objet");
         System.out.println(XmlParser.parseDoctorDataFromFile((Paths.XMLFOLDER.getPath() + "Doctor.xml")));
 
-        System.out.println("---THE END---");
+        // JACKSON
+        System.out.println();
+
+        //write at resources/json
+        JSONUtils.writeJSON(new PersonService().getById(1));
+        JSONUtils.writeJSON(new DoctorService().getById(1));
+        JSONUtils.writeJSON(new PatientService().getById(1));
+        JSONUtils.writeJSON(new NurseService().getById(1));
+        JSONUtils.writeJSON(new ManagementService().getById(1));
+
+        //read from resource/json
+        System.out.println(JSONUtils.readJSON("person"));
+        System.out.println(JSONUtils.readJSON("doctor"));
+        System.out.println(JSONUtils.readJSON("patient"));
+        System.out.println(JSONUtils.readJSON("nurse"));
+        System.out.println(JSONUtils.readJSON("management"));
+
+        System.out.println("\n---THE END---");
     }
 }
