@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.db.jdbc.interfaces.IManagementDAO">
+    <resultMap id="ManagementResultMap" type="Management" autoMapping="false">
+        <result property="managementId" column="id"/>
+        <result property="department" column="department"/>
+        <result property="position" column="position"/>
+        <result property="hireDate" column="hire_date"/>
+        <association property="person" column="person_id" javaType="Person"
+                     select="com.solvd.db.jdbc.interfaces.IPersonDAO.getById"/>
+    </resultMap>
+    <insert id="insert" parameterType="Management" useGeneratedKeys="true" keyProperty="managementId">
+        INSERT INTO management (department, position, hire_date, person_id) VALUES (#{department},
+        #{position}, #{hireDate}, #{person.personId});
+    </insert>
+    <update id="update" parameterType="Management">
+        UPDATE management SET
+        id = #{managementId}, department = #{department}, position = #{position}, hire_date =
+        #{hireDate}, person_id = #{person.personId}
+        WHERE id = #{managementId};
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM management WHERE id = #{managementId};
+    </delete>
+    <select id="getAll" resultMap="ManagementResultMap">
+        SELECT * FROM management;
+    </select>
+    <select id="getById" parameterType="int" resultMap="ManagementResultMap">
+        SELECT * FROM management WHERE id = #{managementId};
+    </select>
+    <select id="getManagementByName" parameterType="String" resultMap="ManagementResultMap">
+        SELECT * FROM management WHERE name = #{name};
+    </select>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.db.jdbc.interfaces.IPatientDAO">
+    <resultMap id="PatientResultMap" type="Patient" autoMapping="false">
+        <result property="patientId" column="id"/>
+        <result property="admissionDate" column="admission_date"/>
+        <result property="dischargeDate" column="discharge_date"/>
+        <result property="medicalHistory" column="medical_history"/>
+        <association property="person" column="person_id" javaType="Person"
+                     select="com.solvd.db.jdbc.interfaces.IPersonDAO.getById"/>
+    </resultMap>
+    <insert id="insert" parameterType="Patient" useGeneratedKeys="true" keyProperty="patientId">
+        INSERT INTO patient (admission_date, discharge_date, medical_history, person_id) VALUES (#{admissionDate},
+        #{dischargeDate}, #{medicalHistory}, #{person.personId});
+    </insert>
+    <update id="update" parameterType="Patient">
+        UPDATE patient SET
+        id = #{patientId}, admission_date = #{admissionDate}, discharge_date = #{dischargeDate}, medical_history =
+        #{medicalHistory}, person_id = #{person.personId}
+        WHERE id = #{patientId};
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM patient WHERE id = #{patientId};
+    </delete>
+    <select id="getAll" resultMap="PatientResultMap">
+        SELECT * FROM patient;
+    </select>
+    <select id="getById" parameterType="int" resultMap="PatientResultMap">
+        SELECT * FROM patient WHERE id = #{patientId};
+    </select>
+    <select id="getPatientByName" parameterType="String" resultMap="PatientResultMap">
+        SELECT * FROM patient WHERE name = #{name};
+    </select>
+</mapper>

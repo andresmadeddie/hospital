@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.db.jdbc.interfaces.INurseDAO">
+    <resultMap id="NurseResultMap" type="Nurse" autoMapping="false">
+        <result property="nurseId" column="id"/>
+        <result property="shift" column="shift"/>
+        <result property="hireDate" column="hire_date"/>
+        <association property="person" column="person_id" javaType="Person"
+                     select="com.solvd.db.jdbc.interfaces.IPersonDAO.getById"/>
+
+    </resultMap>
+    <insert id="insert" parameterType="AdministrativeEmployee" useGeneratedKeys="true" keyProperty="nurseId">
+        INSERT INTO nurse (shift, hire_date, person_id) VALUES (#{shift},
+        #{hireDate}, #{person.personId});
+    </insert>
+    <update id="update" parameterType="AdministrativeEmployee">
+        UPDATE nurse SET
+        id = #{nurseId}, shift = #{shift}, hire_date = #{hireDate}, person_id = #{person.personId}
+        WHERE id = #{nurseId};
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM nurse WHERE id = #{nurseId};
+    </delete>
+    <select id="getAll" resultMap="NurseResultMap">
+        SELECT * FROM nurse;
+    </select>
+    <select id="getById" parameterType="int" resultMap="NurseResultMap">
+        SELECT * FROM nurse WHERE id = #{nurseId};
+    </select>
+    <select id="getNurseByPersonFirstName" parameterType="String" resultMap="NurseResultMap">
+        SELECT * FROM nurse JOIN person ON nurse.person_id = person.id WHERE person_name = #{name};
+    </select>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.db.jdbc.interfaces.IPersonDAO">
+    <resultMap id="PersonResultMap" type="Person" autoMapping="false">
+        <result property="personId" column="id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="dob" column="dob"/>
+        <result property="gender" column="gender"/>
+        <result property="address" column="address"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="email" column="email"/>
+    </resultMap>
+    <insert id="insert" parameterType="Person" useGeneratedKeys="true" keyProperty="personId">
+        INSERT INTO person (first_name, last_name, dob, gender, address, phone_number, email) VALUES (#{firstName},
+        #{lastName}, #{dob}, #{gender}, #{address}, #{phoneNumber}, #{email});
+    </insert>
+    <update id="update" parameterType="Person">
+        UPDATE person SET
+        id = #{personId}, first_name = #{firstName}, last_name = #{lastName}, dob = #{dob}, gender = #{gender}, address
+        = #{address}, phone_number = #{phoneNumber}, email = #{email}
+        WHERE id = #{personId};
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM person WHERE id = #{personId};
+    </delete>
+    <select id="getAll" resultMap="PersonResultMap">
+        SELECT * FROM person;
+    </select>
+    <select id="getById" parameterType="int" resultMap="PersonResultMap">
+        SELECT * FROM person WHERE id = #{personId};
+    </select>
+    <select id="getPersonByName" parameterType="String" resultMap="PersonResultMap">
+        SELECT * FROM person WHERE name = #{name};
+    </select>
+</mapper>

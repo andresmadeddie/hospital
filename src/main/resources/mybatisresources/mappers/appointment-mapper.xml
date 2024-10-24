@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.db.jdbc.interfaces.IAppointmentDAO">
+    <resultMap id="AppointmentResultMap" type="Appointment" autoMapping="false">
+        <result property="appointmentId" column="id"/>
+        <result property="appointmentDate" column="appointment_date"/>
+        <result property="reasonForVisit" column="reason_for_visit"/>
+        <association property="doctor" column="doctor_id" javaType="Doctor"
+                     select="com.solvd.db.jdbc.interfaces.IDoctorDAO.getById"/>
+        <association property="patient" column="patient_id" javaType="Patient"
+                     select="com.solvd.db.jdbc.interfaces.IPatientDAO.getById"/>
+    </resultMap>
+    <insert id="insert" parameterType="Appointment" useGeneratedKeys="true" keyProperty="appointmentId">
+        INSERT INTO appointment (appointment_date, reason_for_visit, doctor_id, patient_id) VALUES
+        (#{appointmentDate},
+        #{reasonForVisit}, #{doctor.doctorId}, #{patient.patientId});
+    </insert>
+    <update id="update" parameterType="Appointment">
+        UPDATE appointment SET
+        id = #{appointmentId}, appointment_date = #{appointmentDate}, reason_for_visit = #{reasonForVisit}, doctor_id =
+        #{doctor.doctorId}, patient_id = #{patient.patientId}
+        WHERE id = #{appointmentId};
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM appointment WHERE id = #{appointmentId};
+    </delete>
+    <select id="getAll" resultMap="AppointmentResultMap">
+        SELECT * FROM appointment;
+    </select>
+    <select id="getById" parameterType="int" resultMap="AppointmentResultMap">
+        SELECT * FROM appointment WHERE id = #{appointmentId};
+    </select>
+    <select id="getAppointmentByName" parameterType="String" resultMap="AppointmentResultMap">
+        SELECT * FROM appointment WHERE name = #{name};
+    </select>
+</mapper>

@@ -7,6 +7,7 @@ import com.solvd.db.jaxb.XmlParser;
 import com.solvd.db.jaxb.XmlValidator;
 import com.solvd.db.jdbc.models.*;
 import com.solvd.db.jdbc.services.*;
+import com.solvd.db.mybatis.mbservices.*;
 import com.solvd.db.utils.connectionutils.TestConnection;
 import com.solvd.db.utils.jdbcutils.SqlResetUtil;
 
@@ -366,12 +367,18 @@ public class Main {
         // INSERT EQUIPMENT
         new EquipmentService().insert(e1);
 
-        // Create 1 Medical Supply
+        // Create 2 Medical Supply
         MedicalSupplies me1 = new MedicalSupplies();
         me1.setName("Gloves");
         me1.setQuantity(1000);
         me1.setUnitPrice(0.2F);
         me1.setSupplier(new SupplierService().getById(2));
+
+        MedicalSupplies me2 = new MedicalSupplies();
+        me2.setName("hammer");
+        me2.setQuantity(100);
+        me2.setUnitPrice(2);
+        me2.setSupplier(new SupplierService().getById(1));
 
         // INSERT MEDICAL SUPPLIES
         new MedicalSuppliesService().insert(me1);
@@ -549,7 +556,7 @@ public class Main {
         XmlValidator.validateXMLAgainstXSD((Paths.XMLFOLDER.getPath() + "Management.xml"), (Paths.XSDFOLDER.getPath() + "management.xsd"));
 
         // XML Parse Doctor
-        System.out.println("\n--- Parsing Doctor from xml to Java objet");
+        System.out.println("\n--- Parsing Doctor from xml to Java object");
         System.out.println(XmlParser.parseDoctorDataFromFile((Paths.XMLFOLDER.getPath() + "Doctor.xml")));
 
         // JACKSON
@@ -568,6 +575,60 @@ public class Main {
         System.out.println(JSONUtils.readJSON("patient"));
         System.out.println(JSONUtils.readJSON("nurse"));
         System.out.println(JSONUtils.readJSON("management"));
+
+        // MyBatis
+        System.out.println("\nMyBatis queries:");
+
+        // Appointments
+        System.out.println(new AppointmentServiceMyBatis().getAll());
+        new AppointmentServiceMyBatis().insert(ap1);
+        System.out.println(new AppointmentServiceMyBatis().getById(5));
+        ap1.setAppointmentDate(Date.valueOf("2024-01-01"));
+        ap1.setAppointmentId(5);
+        new AppointmentServiceMyBatis().update(ap1);
+        System.out.println(new AppointmentServiceMyBatis().getById(5));
+        new AppointmentServiceMyBatis().deleteById(5);
+        System.out.println(new AppointmentServiceMyBatis().getById(5));
+
+        // Equipment
+        System.out.println("\n" + new EquipmentServiceMyBatis().getAll());
+        new EquipmentServiceMyBatis().insert(e1);
+        System.out.println(new EquipmentServiceMyBatis().getById(2));
+        e1.setName("ThisIsTheWay");
+        e1.setEquipmentId(2);
+        new EquipmentServiceMyBatis().update(e1);
+        System.out.println(new EquipmentServiceMyBatis().getById(2));
+        new EquipmentServiceMyBatis().deleteById(2);
+        System.out.println(new EquipmentServiceMyBatis().getById(2));
+
+        //Medical Supplies
+
+        System.out.println("\n" + new MedicalSuppliesServiceMyBatis().getAll());
+        new MedicalSuppliesServiceMyBatis().insert(me2);
+        System.out.println(new MedicalSuppliesServiceMyBatis().getById(2));
+        me2.setName("LaserBeam");
+        me2.setSupplyId(2);
+        new MedicalSuppliesServiceMyBatis().update(me2);
+        System.out.println(new MedicalSuppliesServiceMyBatis().getById(2));
+        new MedicalSuppliesServiceMyBatis().deleteById(2);
+        System.out.println(new MedicalSuppliesServiceMyBatis().getById(2));
+
+        // Person
+        new PersonServiceMyBatis().insert(p1);
+        System.out.println(new PersonServiceMyBatis().getAll());
+        p1.setFirstName("ThisIsTheWay");
+        p1.setPersonId(21);
+        new PersonServiceMyBatis().update(p1);
+        System.out.println(new PersonServiceMyBatis().getById(21));
+        new PersonServiceMyBatis().deleteById(21);
+        System.out.println(new PersonServiceMyBatis().getById(21));
+
+        // Others
+        System.out.println("\n" + new AdministrativeEmployeeServiceMyBatis().getAll());
+        System.out.println(new DoctorServiceMyBatis().getAll());
+        System.out.println(new ManagementServiceMyBatis().getAll());
+        System.out.println(new NurseServiceMyBatis().getAll());
+        System.out.println(new PatientServiceMyBatis().getAll());
 
         System.out.println("\n---THE END---");
     }

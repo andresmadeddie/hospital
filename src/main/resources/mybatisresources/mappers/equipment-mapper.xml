@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.db.jdbc.interfaces.IEquipmentDAO">
+    <resultMap id="EquipmentResultMap" type="Equipment" autoMapping="false">
+        <result property="equipmentId" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="purchaseDate" column="purchase_date"/>
+        <result property="warrantyEnd" column="warranty_end"/>
+        <association property="supplier" column="supplier_id" javaType="Supplier"
+                     select="com.solvd.db.jdbc.interfaces.ISupplierDAO.getById"/>
+    </resultMap>
+    <insert id="insert" parameterType="Equipment" useGeneratedKeys="true" keyProperty="equipmentId">
+        INSERT INTO equipment (name, type, purchase_date, warranty_end, supplier_id) VALUES (#{name},
+        #{type}, #{purchaseDate}, #{warrantyEnd}, #{supplier.supplierId});
+    </insert>
+    <update id="update" parameterType="Equipment">
+        UPDATE equipment SET
+        id = #{equipmentId}, name = #{name}, type = #{type}, purchase_date =
+        #{purchaseDate}, warranty_end = #{warrantyEnd}, supplier_id = #{supplier.supplierId}
+        WHERE id = #{equipmentId};
+    </update>
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM equipment WHERE id = #{equipmentId};
+    </delete>
+    <select id="getAll" resultMap="EquipmentResultMap">
+        SELECT * FROM equipment;
+    </select>
+    <select id="getById" parameterType="int" resultMap="EquipmentResultMap">
+        SELECT * FROM equipment WHERE id = #{equipmentId};
+    </select>
+    <select id="getEquipmentByName" parameterType="String" resultMap="EquipmentResultMap">
+        SELECT * FROM equipment WHERE name = #{name};
+    </select>
+</mapper>

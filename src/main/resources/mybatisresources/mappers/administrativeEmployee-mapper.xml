@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.db.jdbc.interfaces.IAdministrativeEmployeeDAO">
+    <resultMap id="AdministrativeEmployeeResultMap" type="AdministrativeEmployee" autoMapping="false">
+        <result property="adminId" column="id"/>
+        <result property="department" column="department"/>
+        <result property="hireDate" column="hire_date"/>
+        <association property="person" column="person.personId" javaType="Person"
+                     select="com.solvd.db.jdbc.interfaces.IPersonDAO.getById"/>
+    </resultMap>
+    <insert id="insert" parameterType="AdministrativeEmployee" useGeneratedKeys="true"
+            keyProperty="administrativeEmployeeId">
+        INSERT INTO administrative_employee (department, hire_date, person.personId) VALUES (#{department},
+        #{hireDate}, #{personId});
+    </insert>
+    <update id="update" parameterType="AdministrativeEmployee">
+        UPDATE administrative_employee SET
+        id = #{adminId}, department = #{department}, hire_date = #{hireDate}, person.personId =
+        #{personId}
+        WHERE id = #{adminId};
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM administrative_employee WHERE id = #{adminId};
+    </delete>
+    <select id="getAll" resultMap="AdministrativeEmployeeResultMap">
+        SELECT * FROM administrative_employee;
+    </select>
+    <select id="getById" parameterType="int" resultMap="AdministrativeEmployeeResultMap">
+        SELECT * FROM administrative_employee WHERE id = #{adminId};
+    </select>
+    <select id="getAdministrativeEmployeeByName" parameterType="String" resultMap="AdministrativeEmployeeResultMap">
+        SELECT * FROM administrative_employee WHERE name = #{name};
+    </select>
+</mapper>

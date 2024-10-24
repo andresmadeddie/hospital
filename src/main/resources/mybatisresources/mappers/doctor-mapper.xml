@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.db.jdbc.interfaces.IDoctorDAO">
+    <resultMap id="DoctorResultMap" type="Doctor" autoMapping="false">
+        <result property="doctorId" column="id"/>
+        <result property="specialization" column="specialization"/>
+        <result property="licenseNumber" column="license_number"/>
+        <result property="hireDate" column="hire_date"/>
+        <association property="person" column="person_id" javaType="Person"
+                     select="com.solvd.db.jdbc.interfaces.IPersonDAO.getById"/>
+    </resultMap>
+    <insert id="insert" parameterType="Doctor" useGeneratedKeys="true" keyProperty="doctorId">
+        INSERT INTO doctor (specialization, license_number, hire_date, person_id) VALUES (#{specialization},
+        #{licenseNumber}, #{hireDate}, #{person.personId});
+    </insert>
+    <update id="update" parameterType="Doctor">
+        UPDATE doctor SET
+        id = #{doctorId}, specialization = #{specialization}, license_number = #{licenseNumber}, hire_date =
+        #{hireDate}, person_id = #{person.personId}
+        WHERE id = #{doctorId};
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM doctor WHERE id = #{doctorId};
+    </delete>
+    <select id="getAll" resultMap="DoctorResultMap">
+        SELECT * FROM doctor;
+    </select>
+    <select id="getById" parameterType="int" resultMap="DoctorResultMap">
+        SELECT * FROM doctor WHERE id = #{doctorId};
+    </select>
+    <select id="getDoctorByName" parameterType="String" resultMap="DoctorResultMap">
+        SELECT * FROM doctor WHERE name = #{name};
+    </select>
+</mapper>
+
