@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"/>
+    <typeAliases>
+        <typeAlias alias="AdministrativeEmployee" type="com.solvd.db.jdbc.models.AdministrativeEmployee"/>
+        <typeAlias alias="Appointment" type="com.solvd.db.jdbc.models.Appointment"/>
+        <typeAlias alias="Doctor" type="com.solvd.db.jdbc.models.Doctor"/>
+        <typeAlias alias="Equipment" type="com.solvd.db.jdbc.models.Equipment"/>
+        <typeAlias alias="Management" type="com.solvd.db.jdbc.models.Management"/>
+        <typeAlias alias="MedicalSupplies" type="com.solvd.db.jdbc.models.MedicalSupplies"/>
+        <typeAlias alias="Nurse" type="com.solvd.db.jdbc.models.Nurse"/>
+        <typeAlias alias="Patient" type="com.solvd.db.jdbc.models.Patient"/>
+        <typeAlias alias="Person" type="com.solvd.db.jdbc.models.Person"/>
+        <typeAlias alias="Supplier" type="com.solvd.db.jdbc.models.Supplier"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${user}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mybatisresources/mappers/administrativeEmployee-mapper.xml"/>
+        <mapper resource="mybatisresources/mappers/appointment-mapper.xml"/>
+        <mapper resource="mybatisresources/mappers/doctor-mapper.xml"/>
+        <mapper resource="mybatisresources/mappers/equipment-mapper.xml"/>
+        <mapper resource="mybatisresources/mappers/management-mapper.xml"/>
+        <mapper resource="mybatisresources/mappers/medical-supplies-mapper.xml"/>
+        <mapper resource="mybatisresources/mappers/nurse-mapper.xml"/>
+        <mapper resource="mybatisresources/mappers/patient-mapper.xml"/>
+        <mapper resource="mybatisresources/mappers/person-mapper.xml"/>
+        <mapper resource="mybatisresources/mappers/suppliers-mapper.xml"/>
+    </mappers>
+</configuration>
