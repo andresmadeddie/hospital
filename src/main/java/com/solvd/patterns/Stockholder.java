@@ -54,10 +54,9 @@ public class Stockholder  implements StockholderListener, IStockholderListener, 
     }
 
     public static class Builder {
-        private final String name; // required
-        private String email; // optional
-        private int shares; // optional
-
+        private final String name;
+        private String email;
+        private int shares;
         public Builder(String name) {
             this.name = name;
         }
