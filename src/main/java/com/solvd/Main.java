@@ -10,6 +10,16 @@ import com.solvd.db.jdbc.services.*;
 import com.solvd.db.mybatis.mbservices.*;
 import com.solvd.db.utils.connectionutils.TestConnection;
 import com.solvd.db.utils.jdbcutils.SqlResetUtil;
+import com.solvd.patterns.Stockholder;
+import com.solvd.patterns.abstractfactory.AbstractTechnicianFactory;
+import com.solvd.patterns.abstractfactory.TechnicianFactoryProvider;
+import com.solvd.patterns.abstractfactory.product.Technician;
+import com.solvd.patterns.decorator.EmailNotificationDecorator;
+import com.solvd.patterns.facade.StockholderFacade;
+import com.solvd.patterns.listener.StockholderEventManager;
+import com.solvd.patterns.proxy.StockholderProxy;
+import com.solvd.patterns.strategy.AggressiveInvestment;
+import com.solvd.patterns.strategy.ConservativeInvestment;
 
 import java.sql.Date;
 
@@ -560,7 +570,7 @@ public class Main {
         System.out.println(XmlParser.parseDoctorDataFromFile((Paths.XMLFOLDER.getPath() + "Doctor.xml")));
 
         // JACKSON
-        System.out.println();
+        System.out.println("\nJackson and Jason\n");
 
         //write at resources/json
         JSONUtils.writeJSON(new PersonService().getById(1));
@@ -629,6 +639,57 @@ public class Main {
         System.out.println(new ManagementServiceMyBatis().getAll());
         System.out.println(new NurseServiceMyBatis().getAll());
         System.out.println(new PatientServiceMyBatis().getAll());
+
+        // Pattern
+        // Abstract Factory and Factory
+        System.out.println("\nAbstract Factory Pattern");
+
+        AbstractTechnicianFactory radiologyFactory = TechnicianFactoryProvider.getFactory("Radiology");
+        Technician radiologyTechnician = radiologyFactory.createTechnician();
+        radiologyTechnician.performDuties();
+
+        AbstractTechnicianFactory labFactory = TechnicianFactoryProvider.getFactory("Lab");
+        Technician labTechnician = labFactory.createTechnician();
+        labTechnician.performDuties();
+
+        // 1. Builder Pattern
+        System.out.println("\nBuilder");
+        Stockholder stockholder1 = new Stockholder.Builder("Alice")
+                .email("alice@example.com")
+                .shares(100)
+                .build();
+        System.out.println(stockholder1);
+
+        // 2. Listener Pattern
+        System.out.println("\nListener");
+        StockholderEventManager eventManager = new StockholderEventManager();
+        eventManager.addListener(stockholder1);
+        eventManager.notifyListeners("Annual meeting on Friday!");
+
+        // 3. Facade Pattern
+        System.out.println("\nPattern");
+        StockholderFacade facade = new StockholderFacade();
+        facade.registerStockholder("Charlie", "charlie@example.com");
+        facade.alertStockholders("Dividend declared!");
+        facade.createReport();
+
+        // 4. Decorator Pattern
+        System.out.println("\nDecorator");
+        EmailNotificationDecorator decoratedStockholder = new EmailNotificationDecorator(stockholder1);
+        System.out.println(decoratedStockholder.getDetails());
+
+        // 5. Proxy Pattern
+        System.out.println("\nProxy");
+        StockholderProxy proxyStockholder = new StockholderProxy(stockholder1);
+        System.out.println("Proxy Stockholder Name: " + proxyStockholder.getName());
+
+        // 6. Strategy Pattern
+        System.out.println("\nStrategy");
+        stockholder1.setInvestmentStrategy(new ConservativeInvestment());
+        stockholder1.invest();
+
+        stockholder1.setInvestmentStrategy(new AggressiveInvestment());
+        stockholder1.invest();
 
         System.out.println("\n---THE END---");
     }
